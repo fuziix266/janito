@@ -1,648 +1,214 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Demo bonita con Bootstrap</title>
+  <meta charset="utf-8">
+  <title>Página simple y clara</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap 5.3 (CDN) -->
+  <!-- Bootstrap 5.3 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    :root{
-      --bg-1:#070A12;
-      --bg-2:#0B1230;
-      --card: rgba(255,255,255,.08);
-      --line: rgba(255,255,255,.12);
-      --text: #E9ECF5;
-      --muted: rgba(233,236,245,.72);
-      --accent:#7C5CFF;
-      --accent2:#2FE1D6;
-      --shadow: 0 18px 55px rgba(0,0,0,.55);
-      --radius: 18px;
-    }
-
     body{
-      color: var(--text);
-      background:
-        radial-gradient(900px 600px at 15% 12%, rgba(124,92,255,.35), transparent 55%),
-        radial-gradient(900px 600px at 85% 22%, rgba(47,225,214,.20), transparent 55%),
-        radial-gradient(1200px 900px at 50% 90%, rgba(255,133,196,.16), transparent 60%),
-        linear-gradient(180deg, var(--bg-2), var(--bg-1));
-      min-height:100vh;
+      background-color:#f8f9fa;
+      color:#212529;
     }
-
-    .glass{
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
+    .navbar{
+      background-color:#ffffff;
+      border-bottom:1px solid #e5e5e5;
     }
-
-    .brand-dot{
-      width: 42px; height: 42px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(124,92,255,1), rgba(47,225,214,1));
-      box-shadow: 0 12px 30px rgba(124,92,255,.20);
-      position: relative;
+    .hero{
+      background-color:#ffffff;
+      border-radius:16px;
+      padding:2.5rem 2rem;
+      box-shadow:0 10px 25px rgba(0,0,0,.05);
+    }
+    .feature-card{
+      background:#ffffff;
+      border-radius:14px;
+      padding:1.5rem;
+      border:1px solid #e5e5e5;
+      height:100%;
+    }
+    .btn-primary{
+      background-color:#0d6efd;
+      border-radius:12px;
+      padding:.7rem 1.2rem;
+      font-weight:600;
+    }
+    footer{
+      border-top:1px solid #e5e5e5;
+      background:#ffffff;
+    }
+    /* Galería */
+    .photo-card{
+      background:#ffffff;
+      border:1px solid #e5e5e5;
+      border-radius:16px;
       overflow:hidden;
-      flex: 0 0 auto;
+      box-shadow:0 10px 25px rgba(0,0,0,.04);
+      height:100%;
     }
-    .brand-dot::before{
-      content:"";
-      position:absolute; inset:-40%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.65), transparent 45%);
-      transform: rotate(20deg);
-      opacity:.35;
+    .photo-card img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      display:block;
     }
-
-    .nav-blur{
-      background: linear-gradient(180deg, rgba(7,10,18,.85), rgba(7,10,18,.35));
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(16px);
+    @media (max-width: 576px){
+      .photo-card img{height:210px;}
     }
-
-    .btn-gradient{
-      border: 1px solid rgba(124,92,255,.55);
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(47,225,214,.70));
-      color: #0b0f1f;
-      font-weight: 800;
-      border-radius: 14px;
-      box-shadow: 0 14px 35px rgba(124,92,255,.20);
-    }
-    .btn-gradient:hover{filter: brightness(1.06); color:#050611;}
-
-    .muted{color: var(--muted);}
-
-    .pill{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      border-radius: 999px;
-      padding: .35rem .7rem;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: .85rem;
-      white-space: nowrap;
-    }
-
-    .feature-icon{
-      width: 44px; height: 44px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.12);
-      display:flex; align-items:center; justify-content:center;
-      font-size: 1.25rem;
-    }
-
-    .card-soft{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      border-radius: 16px;
-    }
-
-    .divider{
-      height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
-    }
-
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      padding: .2rem .45rem;
-      border-radius: .6rem;
-      color: var(--text);
-      font-size: .9rem;
-    }
-
-    /* “borde” bonito para una barra de progreso */
-    .progress{
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      height: 12px;
-      border-radius: 999px;
-      overflow:hidden;
-    }
-    .progress-bar{
-      background: linear-gradient(90deg, rgba(124,92,255,1), rgba(47,225,214,1));
-    }
-
-    footer a{color: var(--muted); text-decoration:none}
-    footer a:hover{color: var(--text); text-decoration:underline}
   </style>
 </head>
 
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg nav-blur sticky-top">
-    <div class="container py-2">
-      <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="#">
-        <span class="brand-dot"></span>
-        <span>NeoPulse</span>
-      </a>
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">MiPágina</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-        <span class="navbar-toggler-icon" style="filter: invert(1)"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 mt-3 mt-lg-0">
-          <li class="nav-item"><a class="nav-link text-white-50 fw-semibold px-3" href="#features">Características</a></li>
-          <li class="nav-item"><a class="nav-link text-white-50 fw-semibold px-3" href="#cards">Tarjetas</a></li>
-          <li class="nav-item"><a class="nav-link text-white-50 fw-semibold px-3" href="#faq">FAQ</a></li>
-          <li class="nav-item ms-lg-2">
-            <a class="btn btn-gradient px-4 py-2" href="#cta">Empezar</a>
-          </li>
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeria">Fotos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Características</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <header class="container py-5">
-    <div class="row g-4 align-items-stretch">
-      <div class="col-12 col-lg-7">
-        <div class="glass p-4 p-md-5 h-100">
-          <div class="d-flex flex-wrap gap-2 mb-3">
-            <span class="pill">Responsive ✅</span>
-            <span class="pill">Bootstrap 5.3</span>
-            <span class="pill">Sin dependencias raras</span>
-          </div>
+<!-- HERO -->
+<section id="inicio" class="container py-5">
+  <div class="hero text-center">
+    <h1 class="fw-bold mb-3">Página simple y clara</h1>
+    <p class="text-muted fs-5 mb-4">
+      Un ejemplo minimalista con Bootstrap, pensado para verse bien en celular.
+    </p>
+    <div class="d-flex justify-content-center gap-2 flex-wrap">
+      <a href="#galeria" class="btn btn-primary">Ver fotos</a>
+      <a href="#contacto" class="btn btn-outline-secondary rounded-3 px-4">Contacto</a>
+    </div>
+  </div>
+</section>
 
-          <h1 class="display-6 fw-bold mb-3">
-            Una página bonita, rápida y lista para celular
-          </h1>
+<!-- ESPACIO + GALERÍA (con tus 2 fotos) -->
+<section id="galeria" class="container py-5">
+  <div class="row mb-4">
+    <div class="col text-center">
+      <h2 class="fw-bold">Galería</h2>
+      <p class="text-muted mb-0">Imágenes cargadas desde la carpeta <span class="fw-semibold">img</span></p>
+    </div>
+  </div>
 
-          <p class="muted fs-5 mb-4">
-            Esto es un template “cualquier cosa” (tipo landing) con estética moderna, botones, cards,
-            secciones y un formulario. Todo con Bootstrap para que se adapte bien en móvil.
-          </p>
-
-          <div class="d-flex flex-column flex-sm-row gap-2">
-            <a class="btn btn-gradient px-4 py-3" href="#cta">
-              <span class="me-2">🚀</span> Probar ahora
-            </a>
-            <a class="btn btn-outline-light px-4 py-3" href="#features" style="border-radius:14px;">
-              Ver características
-            </a>
-          </div>
-
-          <div class="divider my-4"></div>
-
-          <div class="row g-3">
-            <div class="col-12 col-md-4">
-              <div class="card-soft p-3 h-100">
-                <div class="muted small">Tiempo de carga</div>
-                <div class="d-flex align-items-baseline gap-2">
-                  <div class="fs-3 fw-bold">0.8s</div>
-                  <div class="muted small">promedio</div>
-                </div>
-                <div class="progress mt-2">
-                  <div class="progress-bar" style="width: 78%"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-              <div class="card-soft p-3 h-100">
-                <div class="muted small">Accesibilidad</div>
-                <div class="d-flex align-items-baseline gap-2">
-                  <div class="fs-3 fw-bold">AA</div>
-                  <div class="muted small">contraste</div>
-                </div>
-                <div class="progress mt-2">
-                  <div class="progress-bar" style="width: 92%"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-              <div class="card-soft p-3 h-100">
-                <div class="muted small">Modo</div>
-                <div class="d-flex align-items-baseline gap-2">
-                  <div class="fs-3 fw-bold">Dark</div>
-                  <div class="muted small">premium</div>
-                </div>
-                <div class="progress mt-2">
-                  <div class="progress-bar" style="width: 64%"></div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-5">
-        <div class="glass p-4 p-md-4 h-100">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <div>
-              <div class="muted small">Widget</div>
-              <div class="fw-bold">Estado del sistema</div>
-            </div>
-            <span class="pill">Online 🟢</span>
-          </div>
-
-          <div class="card-soft p-3 mb-3">
-            <div class="d-flex align-items-center gap-3">
-              <div class="feature-icon">⚡</div>
-              <div class="flex-grow-1">
-                <div class="fw-semibold">Rendimiento</div>
-                <div class="muted small">Optimizado para móvil</div>
-              </div>
-              <span class="kbd">A+</span>
-            </div>
-          </div>
-
-          <div class="card-soft p-3 mb-3">
-            <div class="d-flex align-items-center gap-3">
-              <div class="feature-icon">🎨</div>
-              <div class="flex-grow-1">
-                <div class="fw-semibold">Diseño</div>
-                <div class="muted small">Estilo “glass” elegante</div>
-              </div>
-              <span class="kbd">UI</span>
-            </div>
-          </div>
-
-          <div class="card-soft p-3">
-            <div class="d-flex align-items-center gap-3">
-              <div class="feature-icon">🔒</div>
-              <div class="flex-grow-1">
-                <div class="fw-semibold">Buenas prácticas</div>
-                <div class="muted small">Estructura clara y reusable</div>
-              </div>
-              <span class="kbd">OK</span>
-            </div>
-          </div>
-
-          <div class="divider my-4"></div>
-
-          <p class="muted mb-0">
-            Tip: si quieres que esto sea “tema municipal / DIDECO / DOM / Luigi’s / MKGO”, dime el tema y lo
-            adapto (colores, texto, secciones).
-          </p>
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <div class="photo-card">
+        <img src="img/01.jpg" alt="Foto 01">
+        <div class="p-3">
+          <div class="fw-semibold">Foto 01</div>
+          <div class="text-muted small">img/01.jpg</div>
         </div>
       </div>
     </div>
-  </header>
 
-  <!-- FEATURES -->
-  <section id="features" class="container py-4 py-md-5">
-    <div class="row g-4 align-items-end mb-2">
-      <div class="col-12 col-lg-7">
-        <h2 class="fw-bold mb-2">Características</h2>
-        <p class="muted mb-0">Bloques listos para copiar y pegar en cualquier proyecto.</p>
-      </div>
-      <div class="col-12 col-lg-5 text-lg-end">
-        <span class="pill">Se ve bien en celular 📱</span>
-      </div>
-    </div>
-
-    <div class="row g-3 mt-3">
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="glass p-4 h-100">
-          <div class="feature-icon mb-3">📦</div>
-          <div class="fw-bold mb-1">Componentes</div>
-          <div class="muted">Cards, nav, botones, badges, secciones, formulario.</div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="glass p-4 h-100">
-          <div class="feature-icon mb-3">🧩</div>
-          <div class="fw-bold mb-1">Modular</div>
-          <div class="muted">Puedes borrar secciones sin romper el layout.</div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="glass p-4 h-100">
-          <div class="feature-icon mb-3">🌈</div>
-          <div class="fw-bold mb-1">Gradientes</div>
-          <div class="muted">Fondo con glow suave + “glass” en tarjetas.</div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="glass p-4 h-100">
-          <div class="feature-icon mb-3">🧠</div>
-          <div class="fw-bold mb-1">Texto claro</div>
-          <div class="muted">Tipografía limpia y jerarquías bien marcadas.</div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="glass p-4 h-100">
-          <div class="feature-icon mb-3">🛠️</div>
-          <div class="fw-bold mb-1">Fácil de editar</div>
-          <div class="muted">Solo cambia colores en <span class="kbd">:root</span>.</div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="glass p-4 h-100">
-          <div class="feature-icon mb-3">✅</div>
-          <div class="fw-bold mb-1">Bootstrap</div>
-          <div class="muted">Grid y utilidades para responsive sin sufrir.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CARDS -->
-  <section id="cards" class="container py-4 py-md-5">
-    <div class="row g-4">
-      <div class="col-12 col-lg-4">
-        <div class="glass p-4 h-100">
-          <h3 class="fw-bold mb-2">Tarjeta destacada</h3>
-          <p class="muted">Una card tipo “plan” o “producto”.</p>
-          <div class="divider my-3"></div>
-          <div class="d-flex align-items-end gap-2">
-            <div class="display-6 fw-bold">$0</div>
-            <div class="muted pb-2">/ demo</div>
-          </div>
-          <ul class="mt-3 mb-4 text-white-50">
-            <li class="mb-2">Responsive real</li>
-            <li class="mb-2">Secciones limpias</li>
-            <li class="mb-2">Formulario listo</li>
-          </ul>
-          <a class="btn btn-gradient w-100 py-3" href="#cta">Elegir</a>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-8">
-        <div class="glass p-4 p-md-5 h-100">
-          <h3 class="fw-bold mb-3">Sección “contenido”</h3>
-          <p class="muted fs-5">
-            Aquí podrías contar algo: una app, un servicio municipal, una idea de negocio,
-            una radio online, lo que sea.
-          </p>
-
-          <div class="row g-3 mt-2">
-            <div class="col-12 col-md-6">
-              <div class="card-soft p-3 h-100">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="fw-semibold">Checklist</div>
-                  <span class="pill">Simple</span>
-                </div>
-                <div class="muted mt-2">Bloques listos para reutilizar en tus páginas.</div>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6">
-              <div class="card-soft p-3 h-100">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="fw-semibold">Tip</div>
-                  <span class="pill">Pro</span>
-                </div>
-                <div class="muted mt-2">Puedes convertir esto en un “landing” real con tu branding.</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="divider my-4"></div>
-
-          <div class="d-flex flex-column flex-sm-row gap-2">
-            <a class="btn btn-outline-light px-4 py-3" href="#faq" style="border-radius:14px;">Ver FAQ</a>
-            <button class="btn btn-light px-4 py-3 fw-bold" style="border-radius:14px;" data-bs-toggle="modal" data-bs-target="#demoModal">
-              Abrir modal
-            </button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="container py-4 py-md-5">
-    <div class="glass p-4 p-md-5">
-      <div class="row g-4 align-items-center mb-2">
-        <div class="col-12 col-lg-8">
-          <h2 class="fw-bold mb-2">FAQ</h2>
-          <p class="muted mb-0">Acordeón Bootstrap, se ve bien en móvil.</p>
-        </div>
-        <div class="col-12 col-lg-4 text-lg-end">
-          <span class="pill">Sin JS extra</span>
-        </div>
-      </div>
-
-      <div class="accordion accordion-flush mt-3" id="faqAcc">
-        <div class="accordion-item bg-transparent border-0">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed text-white fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q1"
-              style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); border-radius:14px;">
-              ¿Esto funciona en celular?
-            </button>
-          </h2>
-          <div id="q1" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
-            <div class="accordion-body muted">
-              Sí. Usa el grid de Bootstrap y spacing responsive. En pantallas chicas, todo cae en una sola columna.
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-2"></div>
-
-        <div class="accordion-item bg-transparent border-0">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed text-white fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q2"
-              style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); border-radius:14px;">
-              ¿Puedo cambiar el tema/colores?
-            </button>
-          </h2>
-          <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
-            <div class="accordion-body muted">
-              Sí. Cambia variables en <span class="kbd">:root</span> (accent/accent2, fondo, etc.).
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-2"></div>
-
-        <div class="accordion-item bg-transparent border-0">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed text-white fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q3"
-              style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); border-radius:14px;">
-              ¿Qué le agrego para que quede más pro?
-            </button>
-          </h2>
-          <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
-            <div class="accordion-body muted">
-              Iconos (Bootstrap Icons), imágenes reales, y un footer con enlaces. Si quieres, te lo dejo armado.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA + FORM -->
-  <section id="cta" class="container py-4 py-md-5">
-    <div class="row g-4">
-      <div class="col-12 col-lg-6">
-        <div class="glass p-4 p-md-5 h-100">
-          <h2 class="fw-bold mb-2">Formulario de contacto</h2>
-          <p class="muted mb-4">Un form bonito, responsive, con validación simple de Bootstrap.</p>
-
-          <form class="needs-validation" novalidate>
-            <div class="mb-3">
-              <label class="form-label muted">Nombre</label>
-              <input class="form-control bg-transparent text-white border-0" style="box-shadow:none; border:1px solid rgba(255,255,255,.14)!important; border-radius:14px; padding:12px 14px;"
-                     type="text" placeholder="Tu nombre" required>
-              <div class="invalid-feedback">Escribe tu nombre.</div>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label muted">Correo</label>
-              <input class="form-control bg-transparent text-white border-0" style="box-shadow:none; border:1px solid rgba(255,255,255,.14)!important; border-radius:14px; padding:12px 14px;"
-                     type="email" placeholder="correo@ejemplo.com" required>
-              <div class="invalid-feedback">Escribe un correo válido.</div>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label muted">Mensaje</label>
-              <textarea class="form-control bg-transparent text-white border-0" style="box-shadow:none; border:1px solid rgba(255,255,255,.14)!important; border-radius:14px; padding:12px 14px;"
-                        rows="4" placeholder="Cuéntame qué quieres armar..." required></textarea>
-              <div class="invalid-feedback">Escribe un mensaje.</div>
-            </div>
-
-            <div class="d-grid d-sm-flex gap-2">
-              <button type="submit" class="btn btn-gradient px-4 py-3">
-                <span class="me-2">📨</span> Enviar
-              </button>
-              <button type="button" class="btn btn-outline-light px-4 py-3" style="border-radius:14px;" onclick="fillDemo()">
-                Rellenar demo
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-6">
-        <div class="glass p-4 p-md-5 h-100">
-          <h2 class="fw-bold mb-2">Mini panel</h2>
-          <p class="muted mb-4">Un espacio para métricas, links o lo que sea.</p>
-
-          <div class="card-soft p-3 mb-3">
-            <div class="d-flex align-items-center gap-3">
-              <div class="feature-icon">📈</div>
-              <div class="flex-grow-1">
-                <div class="fw-semibold">Visitas</div>
-                <div class="muted small">Hoy</div>
-              </div>
-              <div class="fw-bold fs-4">128</div>
-            </div>
-          </div>
-
-          <div class="card-soft p-3 mb-3">
-            <div class="d-flex align-items-center gap-3">
-              <div class="feature-icon">🧾</div>
-              <div class="flex-grow-1">
-                <div class="fw-semibold">Tareas</div>
-                <div class="muted small">Pendientes</div>
-              </div>
-              <div class="fw-bold fs-4">7</div>
-            </div>
-          </div>
-
-          <div class="card-soft p-3">
-            <div class="d-flex align-items-center gap-3">
-              <div class="feature-icon">🧠</div>
-              <div class="flex-grow-1">
-                <div class="fw-semibold">Idea</div>
-                <div class="muted small">“Convierte esto en tu landing real”</div>
-              </div>
-              <span class="pill">GO</span>
-            </div>
-          </div>
-
-          <div class="divider my-4"></div>
-
-          <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-outline-light" style="border-radius:14px;" href="#features">Ir a features</a>
-            <a class="btn btn-outline-light" style="border-radius:14px;" href="#cards">Ir a cards</a>
-            <a class="btn btn-outline-light" style="border-radius:14px;" href="#faq">Ir a faq</a>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="container py-5">
-    <div class="divider mb-4"></div>
-    <div class="row g-3 align-items-center">
-      <div class="col-12 col-md">
-        <div class="d-flex align-items-center gap-2">
-          <span class="brand-dot" style="width:32px;height:32px;border-radius:12px"></span>
-          <div>
-            <div class="fw-bold">NeoPulse</div>
-            <div class="muted small">Template Bootstrap demo</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-auto">
-        <div class="d-flex flex-wrap gap-3 muted">
-          <a href="#features">Características</a>
-          <a href="#faq">FAQ</a>
-          <a href="#cta">Contacto</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- MODAL -->
-  <div class="modal fade" id="demoModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content text-white" style="background: rgba(10,14,28,.92); border:1px solid rgba(255,255,255,.12); border-radius:18px;">
-        <div class="modal-header border-0">
-          <h5 class="modal-title fw-bold">Modal de ejemplo</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body muted">
-          Listo: esto funciona 10/10 en celular. Si quieres, te lo adapto a un tema específico (DOM / DIDECO / Luigi’s / MKGO).
-        </div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn btn-outline-light" style="border-radius:14px;" data-bs-dismiss="modal">Cerrar</button>
-          <a class="btn btn-gradient" href="#cta" data-bs-dismiss="modal">Ir al formulario</a>
+    <div class="col-12 col-md-6">
+      <div class="photo-card">
+        <img src="img/02.png" alt="Foto 02">
+        <div class="p-3">
+          <div class="fw-semibold">Foto 02</div>
+          <div class="text-muted small">img/02.png</div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- FEATURES -->
+<section id="features" class="container py-4">
+  <div class="row mb-4">
+    <div class="col text-center">
+      <h2 class="fw-bold">Características</h2>
+      <p class="text-muted">Bloques simples, claros y reutilizables</p>
+    </div>
+  </div>
 
-  <script>
-    // Validación Bootstrap
-    (() => {
-      const forms = document.querySelectorAll('.needs-validation');
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          } else {
-            event.preventDefault();
-            alert("✅ Enviado (demo). Aquí conectarías tu backend.");
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    })();
+  <div class="row g-3">
+    <div class="col-12 col-md-4">
+      <div class="feature-card">
+        <h5 class="fw-semibold">📱 Responsive</h5>
+        <p class="text-muted mb-0">
+          Se adapta automáticamente a celulares y tablets.
+        </p>
+      </div>
+    </div>
 
-    // Rellenar demo
-    function fillDemo(){
-      const inputs = document.querySelectorAll('input, textarea');
-      if(inputs[0]) inputs[0].value = "Jonathan";
-      if(inputs[1]) inputs[1].value = "jonathan@ejemplo.com";
-      if(inputs[2]) inputs[2].value = "Hola! Quiero adaptar este template a mi proyecto.";
-    }
-  </script>
+    <div class="col-12 col-md-4">
+      <div class="feature-card">
+        <h5 class="fw-semibold">🎨 Diseño claro</h5>
+        <p class="text-muted mb-0">
+          Fondo blanco, sombras suaves y buena legibilidad.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="feature-card">
+        <h5 class="fw-semibold">⚡ Bootstrap</h5>
+        <p class="text-muted mb-0">
+          Grid y componentes sin complicaciones.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="feature-card">
+        <h3 class="fw-bold mb-3">Contacto</h3>
+
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" placeholder="Tu nombre">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" class="form-control" placeholder="correo@ejemplo.com">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mensaje</label>
+            <textarea class="form-control" rows="4" placeholder="Escribe tu mensaje"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-4">
+  <div class="container text-center">
+    <div class="text-muted small">
+      © 2026 · Página demo simple con Bootstrap
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
